@@ -34,7 +34,7 @@ exports.loginUser = (req, res) => {
 };
 ```
 
-### Validate the Request
+### Validate the Request (You probably don't need this)
 We'll use the same method to validate the login form but since there are different fields, we need to define a new array for the login form in [`validators.js`](../validators.js).
 
 ```JavaScript
@@ -87,14 +87,14 @@ We're done with **#1** and **#3** in the `loginUser` list of `TODO`. To check if
 
 ### Find User in Database
 We need to check if the user exists in the database to continue with the authentication process. Let's find if the email matches a record in the database first.
-
+* For this part, ask ChatGPT to modify the code that replaces "getOne" with "findOne" and then replace the email part with username. :)
 Replace `res.redirect('/');` from above and add the following:
 ```JavaScript
 userModel.getOne({ email: email }, (err, user) => {
   if (err) {
     // Database error occurred...
     req.flash('error_msg', 'Something happened! Please try again.');
-    res.redirect('/login');
+    res.redirect('/'); 
   } else {
     // Successful query
     if (user) {
@@ -105,7 +105,7 @@ userModel.getOne({ email: email }, (err, user) => {
     } else {
       // No user found
       req.flash('error_msg', 'No registered user with that email. Please register.');
-      res.redirect('/register');
+      res.redirect('/');
     }
   }
 });
